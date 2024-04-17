@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Buttons Example</title>
+</head>
+<body>
+
+<!-- Radio buttons -->
+<input type="radio" name="size" id="large" onclick='sizeData="L"'>
+<input type="radio" name="size" id="small" onclick='sizeData="S"'>
+<input type="text" id="radiobtn">
+<!-- Button to clear radio buttons -->
+<button onclick="clearRadioButtons()">Clear Radio Buttons</button>
+
+<script>
+  // Variable to hold selected size
+  var sizeData = "";
+radiobtn="hello";
+  // Function to clear radio buttons
+  function clearRadioButtons() {
+    // Clear radio buttons indirectly by modifying the variable
+    sizeData = "";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tennis Club</title>
+    <style>
+        body {
+            color: black;
+            background-color: greenyellow;
+        }
+    </style>
+    <script>
+        var equipmentRacket = "";
+        var equipmentShoes = "";
+        var numLessonBundles = 0;
+        var clubMembership = "";
+        var membershipType = "";
+
+        function process() {
+            if (clubMembership === "Yes") {
+                if (document.getElementById("membershipTypeGreen").checked) {
+                    membershipType = "Green";
+                } else if (document.getElementById("membershipTypePlatinum").checked) {
+                    membershipType = "Platinum";
+                }
+            }
+            var totalPrice = 0;
+            var memberDiscount = 0;
+            var equipmentCost = 0;
+            var lessonsCost = 0;
+            if (equipmentRacket === "Yes") {
+                equipmentCost += 150;
+            }
+            if (equipmentShoes === "Yes") {
+                equipmentCost += 100;
+            }
+            lessonsCost += numLessonBundles * 200;
+            if (numLessonBundles >= 5) {
+                lessonsCost = lessonsCost - (lessonsCost * 0.1); // 10% discount for 5 or more bundles
+            }
+            totalPrice += lessonsCost + equipmentCost;
+            if (clubMembership === "Yes") {
+                if (membershipType == "Green") {
+                    totalPrice += 50;
+                    memberDiscount = equipmentCost * 0.1;
+                } else if (membershipType == "Platinum") {
+                    totalPrice += 200;
+                    memberDiscount = totalPrice * 0.2;
+                }
+            }
+
+            var salesTax = (totalPrice - memberDiscount) * 0.07;
+            var finalCost = (totalPrice - memberDiscount) + salesTax;
+
+            document.getElementById("totalPrice").value = totalPrice.toFixed(2);
+            document.getElementById("memberDiscount").value = memberDiscount.toFixed(2);
+            document.getElementById("salesTax").value = salesTax.toFixed(2);
+            document.getElementById("finalCost").value = finalCost.toFixed(2);
+
+        }
+
+        function clearFields() {
+            equipmentRacket = "";
+            equipmentShoes = "";
+            numLessonBundles = 0;
+            clubMembership = "";
+            membershipType = "";
+
+            document.getElementById("equipmentRacketNo").checked = false;
+            document.getElementById("equipmentRacketYes").checked = false;
+
+            document.getElementById("equipmentShoesNo").checked = false;
+            document.getElementById("equipmentShoesYes").checked = false;
+
+            document.getElementById("numLessonBundles").value = 0;
+            document.getElementById("clubMembershipNo").checked = false;
+            document.getElementById("clubMembershipYes").checked = false;
+
+            document.getElementById("membershipTypeGreen").checked = false;
+            document.getElementById("membershipTypePlatinum").checked = false;
+
+            document.getElementById("totalPrice").value = "";
+            document.getElementById("memberDiscount").value = "";
+            document.getElementById("salesTax").value = "";
+            document.getElementById("finalCost").value = "";
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Tennis Club</h1>
+
+    <h2>Inputs</h2>
+    <table>
+        <tr>
+            <td>Custom Racquet:</td>
+            <td>
+                <input type="radio" id="equipmentRacketYes" name="equipmentRacket" onclick="equipmentRacket = 'Yes';">
+                Yes
+                <input type="radio" id="equipmentRacketNo" name="equipmentRacket" onclick="equipmentRacket = 'No';"> No
+            </td>
+        </tr>
+        <tr>
+            <td>Custom Shoes: </td>
+            <td>
+                <input type="radio" id="equipmentShoesYes" name="equipmentShoes" onclick="equipmentShoes = 'Yes';"> Yes
+                <input type="radio" id="equipmentShoesNo" name="equipmentShoes" onclick="equipmentShoes = 'No';"> No
+            </td>
+        </tr>
+        <tr>
+            <td>Number of Starting Lesson Bundles: </td>
+            <td>
+                <input type="number" id="numLessonBundles" name="numLessonBundles"
+                    onchange="numLessonBundles = Number(this.value);">
+            </td>
+        </tr>
+        <tr>
+            <td>Club Membership: </td>
+            <td>
+                <input type="radio" id="clubMembershipYes" name="clubMembership" onclick="clubMembership = 'Yes';"> Yes
+                <input type="radio" id="clubMembershipNo" name="clubMembership"
+                    onclick=" clubMembership = 'No';memberShipType='';"> No
+            </td>
+        </tr>
+        <tr id="membershipTypeSection">
+            <td>Membership Type: </td>
+            <td>
+                <input type="radio" id="membershipTypeGreen" name="membershipType" onclick="membershipType ='Green'">
+                Green
+                <input type="radio" id="membershipTypePlatinum" name="membershipType"
+                    onclick="membershipType = 'Platinum'"> Platinum
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        <button onclick="process()">Process</button>
+        <button onclick="clearFields()">Clear</button>
+    </p>
+
+    <table id="outputTable">
+        <th>
+            <h2>Outputs</h2>
+
+        </th>
+        <tr>
+            <td>Total Price: </td>
+            <td>$<input type="text" id="totalPrice" readonly></td>
+        </tr>
+        <tr>
+            <td>Member Discount: </td>
+            <td>$<input type="text" id="memberDiscount" readonly></td>
+        </tr>
+        <tr>
+            <td>Sales Tax: </td>
+            <td>$<input type="text" id="salesTax" readonly></td>
+        </tr>
+        <tr>
+            <td>Final Cost: </td>
+            <td>$<input type="text" id="finalCost" readonly></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
